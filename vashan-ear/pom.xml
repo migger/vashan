@@ -27,7 +27,7 @@
       <plugin>
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
-        <version>${appengine.target.version}</version>
+        <version>${appengine.target.version}-maven3.0</version>
       </plugin>
     </plugins>
   </build>

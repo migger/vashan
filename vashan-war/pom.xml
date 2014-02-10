@@ -45,16 +45,54 @@
         </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-stubs</artifactId>
+            <artifactId>appengine-tools-sdk</artifactId>
             <version>${appengine.target.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-stubs</artifactId>
+            <version>${appengine.target.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-agent</artifactId>
+            <version>${appengine.target.version}</version>
+            <scope>system</scope>
+            <systemPath>${appengine.home}/lib/agent/appengine-agent.jar</systemPath>
+        </dependency>
+
     </dependencies>
-      
+
     <build>
-        <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory> 
-                                   
+        <outputDirectory>target/${project.artifactId}-${project.version}/WEB-INF/classes</outputDirectory>
+
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>${project.basedir}/appengine.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
