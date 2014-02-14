@@ -15,7 +15,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>ru.vashan.web.ApplicationConfig</param-value>
         </init-param>
-        <
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>servlet</servlet-name>
