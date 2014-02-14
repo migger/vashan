@@ -1,6 +1,7 @@
-package ru.vashan.server;
+package ru.vashan.server.testinfra;
 
 import com.google.appengine.tools.development.testing.BaseDevAppServerTestConfig;
+import ru.vashan.server.ServerStartedTest;
 
 import java.io.File;
 import java.io.FileInputStream;
