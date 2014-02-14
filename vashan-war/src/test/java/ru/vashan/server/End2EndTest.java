@@ -1,11 +1,8 @@
 package ru.vashan.server;
 
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
-import com.google.appengine.api.urlfetch.URLFetchServicePb;
 import com.google.appengine.tools.development.testing.*;
 import junit.framework.Assert;
 import org.junit.After;
@@ -15,18 +12,16 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 @RunWith(DevAppServerTestRunner.class)
-@DevAppServerTest(Main.TestConfig.class)
-public class Main {
-    private static final int PORT = 8080;
+@DevAppServerTest(End2EndTest.TestConfig.class)
+public class End2EndTest {
     private final LocalServiceTestHelper testHelper = new LocalServiceTestHelper(new LocalURLFetchServiceTestConfig(), new LocalDatastoreServiceTestConfig());
 
     public static class TestConfig extends BaseDevAppServerTestConfig {
@@ -55,8 +50,16 @@ public class Main {
 
         @Override
         public List<URL> getClasspath() {
-            return Arrays.asList(((URLClassLoader)Main.class.getClassLoader()).getURLs());
+            final ArrayList<URL> urls = new ArrayList<>();
+            for (URL o : ((URLClassLoader)End2EndTest.class.getClassLoader()).getURLs()) {
+                final String s = o.toString();
+                if(!s.contains("google") || s.contains("appengine-api-1.0-sdk")) {
+                    urls.add(o);
+                }
+            }
+            return urls;
         }
+
     }
 
     @Before
@@ -71,8 +74,8 @@ public class Main {
 
     @Test
     public void testEndToEnd() throws Exception {
-        URLFetchService fetchService = URLFetchServiceFactory.getURLFetchService();
-        HTTPResponse resp = fetchService.fetch(new URL("http://localhost:" + PORT + "/"));
+        final URLFetchService fetchService = URLFetchServiceFactory.getURLFetchService();
+        final HTTPResponse resp = fetchService.fetch(new URL("http://localhost:" + System.getProperty(BaseDevAppServerTestConfig.DEFAULT_PORT_SYSTEM_PROPERTY) + "/"));
         Assert.assertEquals(200, resp.getResponseCode());
     }
 }
