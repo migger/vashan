@@ -11,7 +11,7 @@ import java.net.URLClassLoader;
 import java.util.*;
 
 public class TestConfig extends BaseDevAppServerTestConfig {
-    public static final Set<String> ALLOWED_GOOGLE_ARTIFACTS = new HashSet<>(Arrays.asList("gson", "appengine-api-1.0-sdk"));
+    public static final Set<String> DENIED_GOOGLE_ARTIFACTS = new HashSet<>(Arrays.asList("appengine-api-stubs", "appengine-tools-sdk", "appengine-testing"));
     private final static String appEngineHome;
     static {
        try(FileInputStream stream = new FileInputStream("vashan-war/appengine.properties")) {
@@ -48,12 +48,12 @@ public class TestConfig extends BaseDevAppServerTestConfig {
     }
 
     private boolean isAllowed(String s) {
-        for (String allowedGoogleArtifact : ALLOWED_GOOGLE_ARTIFACTS) {
+        for (String allowedGoogleArtifact : DENIED_GOOGLE_ARTIFACTS) {
             if(s.contains(allowedGoogleArtifact)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
 }

@@ -12,22 +12,21 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.vashan.domain.BuyList;
 import ru.vashan.repository.buylist.BuyListRepository;
 
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class ListSearchControllerTest {
+public class ListSaveControllerTest {
     @Configuration
     static class ContextConfiguration {
         @Bean
-        public ListSearchController listSearchController() {
-            return new ListSearchController();
+        public ListSaveController listSearchController() {
+            return new ListSaveController();
         }
 
         @Bean
@@ -37,7 +36,7 @@ public class ListSearchControllerTest {
     }
 
     @Autowired
-    private ListSearchController listSearchController;
+    private ListSaveController listSaveController;
     @Autowired
     private BuyListRepository buyListRepository;
 
@@ -48,16 +47,17 @@ public class ListSearchControllerTest {
 
     @Test
     public void testIsController() throws Exception {
-        Assert.assertNotNull(listSearchController.getClass().getAnnotation(Controller.class));
-        final RequestMapping requestMapping = listSearchController.getClass().getAnnotation(RequestMapping.class);
+        Assert.assertNotNull(listSaveController.getClass().getAnnotation(Controller.class));
+        final RequestMapping requestMapping = listSaveController.getClass().getAnnotation(RequestMapping.class);
         Assert.assertNotNull(requestMapping);
-        Assert.assertEquals("/list/search.json", requestMapping.value()[0]);
+        Assert.assertEquals("/list/save.json", requestMapping.value()[0]);
     }
 
     @Test
     public void testReturnList() throws Exception {
-        final List expected = mock(List.class);
-        when(buyListRepository.getAll()).thenReturn(expected);
-        Assert.assertEquals(expected, listSearchController.search());
+        final BuyList expected = mock(BuyList.class);
+        final BuyList input = mock(BuyList.class);
+        when(buyListRepository.save(input)).thenReturn(expected);
+        Assert.assertEquals(expected, listSaveController.save(input));
     }
 }
