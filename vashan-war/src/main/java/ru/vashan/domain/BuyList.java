@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity(name = "buyList")
 public class BuyList {
     @Id()
-    private String id;
+    private Long id;
     private Date date;
     private String title;
 
@@ -20,7 +20,7 @@ public class BuyList {
     public BuyList() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

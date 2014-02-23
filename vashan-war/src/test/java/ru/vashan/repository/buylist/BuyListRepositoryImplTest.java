@@ -1,4 +1,4 @@
-package ru.vashan.repository;
+package ru.vashan.repository.buylist;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -16,8 +16,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import ru.vashan.domain.BuyList;
-import ru.vashan.repository.buylist.BuyListRepository;
-import ru.vashan.repository.buylist.BuyListRepositoryImpl;
+import ru.vashan.server.testinfra.BaseChecks;
+import ru.vashan.web.controllers.Excluded;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +34,7 @@ public class BuyListRepositoryImplTest {
     private Saver saver;
 
     @Configuration
+    @Excluded
     static class ContextConfiguration {
         @Bean
         public BuyListRepository buyListRepository() {
@@ -65,6 +66,11 @@ public class BuyListRepositoryImplTest {
     }
 
     @Test
+    public void testIsComponent() throws Exception {
+        BaseChecks.assertIsAComponent(buyListRepository.getClass());;
+    }
+
+    @Test
     public void testGetAll() throws Exception {
         final LoadType<BuyList> loadType = mock(LoadType.class);
         when(loader.type(BuyList.class)).thenReturn(loadType);
@@ -88,7 +94,5 @@ public class BuyListRepositoryImplTest {
         buyListRepository.save(input);
         verify(saver).entity(input);
         verify(result).now();
-
-
     }
 }

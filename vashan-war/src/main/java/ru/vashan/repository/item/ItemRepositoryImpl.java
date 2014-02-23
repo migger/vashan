@@ -1,28 +1,28 @@
-package ru.vashan.repository.buylist;
+package ru.vashan.repository.item;
+
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.vashan.domain.BuyList;
+import ru.vashan.domain.Item;
 
 import java.util.List;
 
 @Component
-public class BuyListRepositoryImpl implements BuyListRepository {
+public class ItemRepositoryImpl implements ItemRepository {
     @Autowired
     private ObjectifyFactory objectifyFactory;
-
     @Override
-    public List<BuyList> getAll() {
-        final Objectify ojy = objectifyFactory.begin();
-        return ojy.load().type(BuyList.class).list();
+    public List<Item> getAll() {
+        final Objectify ofy = objectifyFactory.begin();
+        return ofy.load().type(Item.class).list();
     }
 
     @Override
-    public BuyList save(BuyList buyList) {
+    public Item save(Item item) {
         final Objectify ofy = objectifyFactory.begin();
-        ofy.save().entity(buyList).now();
-        return buyList;
+        ofy.save().entity(item).now();
+        return item;
     }
 }

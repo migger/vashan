@@ -1,4 +1,4 @@
-package ru.vashan.web.controllers.list;
+package ru.vashan.web.controllers.item;
 
 import junit.framework.Assert;
 import org.junit.Before;
@@ -7,15 +7,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.vashan.domain.BuyList;
-import ru.vashan.repository.buylist.BuyListRepository;
+import ru.vashan.domain.Item;
+import ru.vashan.repository.item.ItemRepository;
 import ru.vashan.server.testinfra.BaseChecks;
 import ru.vashan.server.testinfra.MethodChecker;
 import ru.vashan.web.controllers.Excluded;
@@ -23,41 +22,39 @@ import ru.vashan.web.controllers.Excluded;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class ListSearchControllerTest {
+public class ItemSaveControllerTest {
     @Configuration
     @Excluded
     static class ContextConfiguration {
         @Bean
-        public ListSearchController listSearchController() {
-            return new ListSearchController();
+        public ItemSaveController itemSaveController() {
+            return new ItemSaveController();
         }
 
         @Bean
-        public BuyListRepository buyListRepository() {
-            return mock(BuyListRepository.class);
+        public ItemRepository buyListRepository() {
+            return mock(ItemRepository.class);
         }
     }
 
     @Autowired
-    private ListSearchController listSearchController;
+    private ItemSaveController itemSaveController;
     @Autowired
-    private BuyListRepository buyListRepository;
+    private ItemRepository itemRepository;
 
     @Before
     public void setUp() throws Exception {
-        reset(buyListRepository);
+        reset(itemRepository);
     }
 
     @Test
     public void testIsController() throws Exception {
-        BaseChecks.assertIsAController("/list/search.json", listSearchController.getClass());
-        BaseChecks.ckeckMethod(listSearchController.getClass(), new Class[]{}, "search", new MethodChecker(){
+        BaseChecks.assertIsAController("/item/save.json", itemSaveController.getClass());
+        BaseChecks.ckeckMethod(itemSaveController.getClass(), new Class[]{Item.class}, "save", new MethodChecker(){
             @Override
             public void checkMethod(Method method) {
                 org.junit.Assert.assertNotNull(method.getAnnotation(RequestMapping.class));
@@ -73,9 +70,11 @@ public class ListSearchControllerTest {
     }
 
     @Test
-    public void testReturnList() throws Exception {
-        final List expected = mock(List.class);
-        when(buyListRepository.getAll()).thenReturn(expected);
-        Assert.assertEquals(expected, listSearchController.search());
+    public void testList() throws Exception {
+        final Item expected = mock(Item.class);
+        final Item item = mock(Item.class);
+        when(itemRepository.save(item)).thenReturn(expected);
+        Assert.assertEquals(expected, itemSaveController.save(item));
+
     }
 }
