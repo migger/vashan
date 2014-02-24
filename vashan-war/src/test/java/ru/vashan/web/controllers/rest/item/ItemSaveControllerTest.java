@@ -1,4 +1,4 @@
-package ru.vashan.web.controllers.item;
+package ru.vashan.web.controllers.rest.item;
 
 import junit.framework.Assert;
 import org.junit.Before;
@@ -20,7 +20,6 @@ import ru.vashan.server.testinfra.MethodChecker;
 import ru.vashan.web.controllers.Excluded;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
 

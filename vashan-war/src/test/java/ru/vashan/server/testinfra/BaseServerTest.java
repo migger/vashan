@@ -64,7 +64,7 @@ public class BaseServerTest {
     }
 
     protected <T> T doPutAndGetContentJSon(String page, Object o, Class<T> returnType) throws IOException {
-        final Gson gson = new GsonBuilder().setDateFormat("dd.MM.yyyy HH:mm:ss.SSS zzz").create();
+        final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         return gson.fromJson(doPutAndGetContent(page, gson.toJson(o), MediaType.APPLICATION_JSON), returnType);
 
     }

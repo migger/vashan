@@ -1,4 +1,4 @@
-package ru.vashan.web.controllers.bounditem;
+package ru.vashan.web.controllers.rest.bounditem;
 
 import com.googlecode.objectify.Key;
 import org.springframework.beans.factory.annotation.Autowired;

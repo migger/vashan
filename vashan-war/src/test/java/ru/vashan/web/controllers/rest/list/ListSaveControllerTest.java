@@ -1,13 +1,12 @@
-package ru.vashan.web.controllers.list;
+package ru.vashan.web.controllers.rest.list;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -21,21 +20,18 @@ import ru.vashan.server.testinfra.MethodChecker;
 import ru.vashan.web.controllers.Excluded;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class ListSearchControllerTest {
+public class ListSaveControllerTest {
     @Configuration
     @Excluded
     static class ContextConfiguration {
         @Bean
-        public ListSearchController listSearchController() {
-            return new ListSearchController();
+        public ListSaveController listSearchController() {
+            return new ListSaveController();
         }
 
         @Bean
@@ -45,7 +41,7 @@ public class ListSearchControllerTest {
     }
 
     @Autowired
-    private ListSearchController listSearchController;
+    private ListSaveController listSaveController;
     @Autowired
     private BuyListRepository buyListRepository;
 
@@ -56,26 +52,26 @@ public class ListSearchControllerTest {
 
     @Test
     public void testIsController() throws Exception {
-        BaseChecks.assertIsAController("/list/search.json", listSearchController.getClass());
-        BaseChecks.ckeckMethod(listSearchController.getClass(), new Class[]{}, "search", new MethodChecker(){
+        BaseChecks.assertIsAController("/list/save.json", listSaveController.getClass());
+        BaseChecks.ckeckMethod(listSaveController.getClass(), new Class[]{BuyList.class}, "save", new MethodChecker(){
             @Override
             public void checkMethod(Method method) {
-                org.junit.Assert.assertNotNull(method.getAnnotation(RequestMapping.class));
-                org.junit.Assert.assertNotNull(method.getAnnotation(ResponseBody.class));
+                Assert.assertNotNull(method.getAnnotation(RequestMapping.class));
+                Assert.assertNotNull(method.getAnnotation(ResponseBody.class));
             }
 
             @Override
             protected void checkParameter1(Parameter parameter) {
-                org.junit.Assert.assertNotNull(parameter.getAnnotation(RequestBody.class));
+                Assert.assertNotNull(parameter.getAnnotation(RequestBody.class));
             }
         });
-
     }
 
     @Test
     public void testReturnList() throws Exception {
-        final List expected = mock(List.class);
-        when(buyListRepository.getAll()).thenReturn(expected);
-        Assert.assertEquals(expected, listSearchController.search());
+        final BuyList expected = mock(BuyList.class);
+        final BuyList input = mock(BuyList.class);
+        when(buyListRepository.save(input)).thenReturn(expected);
+        Assert.assertEquals(expected, listSaveController.save(input));
     }
 }

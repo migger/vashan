@@ -1,14 +1,9 @@
 function start() {
-    $( "#list-title-input" ).keydown(listItem_keyDown);
-    $.get('../../list/search.json', gotItems);
+    $.get('../../list/get/' + window.location.hash, gotItem);
 }
 
-function gotItems(items) {
-    items.forEach(function (i) {
-        var item = $("<div class='list-item'/>");
-        item.html(itemString(i));
-        $( "#buyList-container" ).append(item);
-    });
+function gotItem(item) {
+    $(".head").html(item.title);
 }
 
 function itemString(item) {

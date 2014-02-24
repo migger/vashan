@@ -6,19 +6,15 @@ import com.google.appengine.tools.development.testing.DevAppServerTestRunner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import junit.framework.Assert;
-import net.glxn.qrgen.QRCode;
-import net.glxn.qrgen.image.ImageType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.vashan.domain.BuyList;
 import ru.vashan.server.testinfra.BaseServerTest;
 import ru.vashan.server.testinfra.TestConfig;
-import ru.vashan.web.controllers.list.ListSaveController;
-import ru.vashan.web.controllers.list.ListSearchController;
+import ru.vashan.web.controllers.rest.list.ListSaveController;
+import ru.vashan.web.controllers.rest.list.ListSearchController;
 
-import java.awt.*;
-import java.io.File;
 import java.net.*;
 import java.util.Date;
 import java.util.Enumeration;
@@ -57,7 +53,8 @@ public class ServerStartedTest extends BaseServerTest {
     @Test
     public void testWait() throws Exception {
         final Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-        System.out.format("redir --lport=9090 --cport=%s --laddr=0.0.0.0 --caddr=localhost", System.getProperty(BaseDevAppServerTestConfig.DEFAULT_PORT_SYSTEM_PROPERTY);
+        System.out.format("redir --lport=9090 --cport=%s --laddr=0.0.0.0 --caddr=localhost", System.getProperty(BaseDevAppServerTestConfig.DEFAULT_PORT_SYSTEM_PROPERTY));
+
         Thread.currentThread().join();
     }
 }

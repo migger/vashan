@@ -5,6 +5,7 @@ import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.Result;
 import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Loader;
+import com.googlecode.objectify.cmd.Query;
 import com.googlecode.objectify.cmd.Saver;
 import org.junit.Before;
 import org.junit.Test;
@@ -74,9 +75,11 @@ public class BuyListRepositoryImplTest {
     public void testGetAll() throws Exception {
         final LoadType<BuyList> loadType = mock(LoadType.class);
         when(loader.type(BuyList.class)).thenReturn(loadType);
+        Query<BuyList> query = mock(Query.class);
+        when(loadType.order("-date")).thenReturn(query);
         final BuyList buyList1 = mock(BuyList.class);
         final BuyList buyList2 = mock(BuyList.class);
-        when(loadType.list()).thenReturn(Arrays.asList(
+        when(query.list()).thenReturn(Arrays.asList(
                 buyList1,
                 buyList2
         ));

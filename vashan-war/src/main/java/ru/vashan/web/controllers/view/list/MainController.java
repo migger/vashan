@@ -1,4 +1,4 @@
-package ru.vashan.web.controllers;
+package ru.vashan.web.controllers.view.list;
 
 import org.mortbay.jetty.MimeTypes;
 import org.springframework.stereotype.Controller;

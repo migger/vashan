@@ -1,4 +1,4 @@
-package ru.vashan.web.controllers;
+package ru.vashan.web.controllers.view.list;
 
 import junit.framework.Assert;
 import org.junit.Test;

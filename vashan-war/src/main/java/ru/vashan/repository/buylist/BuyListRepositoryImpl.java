@@ -16,7 +16,7 @@ public class BuyListRepositoryImpl implements BuyListRepository {
     @Override
     public List<BuyList> getAll() {
         final Objectify ojy = objectifyFactory.begin();
-        return ojy.load().type(BuyList.class).list();
+        return ojy.load().type(BuyList.class).order("-date").list();
     }
 
     @Override

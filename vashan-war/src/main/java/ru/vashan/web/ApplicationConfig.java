@@ -1,5 +1,6 @@
 package ru.vashan.web;
 
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.spring.ObjectifyFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +16,12 @@ import ru.vashan._Components;
 import ru.vashan.domain.BuyList;
 import ru.vashan.web.controllers.Excluded;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,7 +47,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.getObjectMapper().setDateFormat(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS zzz", Locale.US));
+        converter.getObjectMapper().setDateFormat(new ISO8601DateFormat());
         converters.add(converter);
     }
 

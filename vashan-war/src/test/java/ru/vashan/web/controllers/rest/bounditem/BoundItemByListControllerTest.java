@@ -1,4 +1,4 @@
-package ru.vashan.web.controllers.bounditem;
+package ru.vashan.web.controllers.rest.bounditem;
 
 import com.googlecode.objectify.Key;
 import org.junit.Assert;
@@ -20,10 +20,8 @@ import ru.vashan.server.testinfra.BaseChecks;
 import ru.vashan.server.testinfra.MethodChecker;
 import ru.vashan.web.controllers.Excluded;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
