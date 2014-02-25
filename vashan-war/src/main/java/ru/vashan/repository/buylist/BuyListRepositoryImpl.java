@@ -1,5 +1,6 @@
 package ru.vashan.repository.buylist;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,10 @@ public class BuyListRepositoryImpl implements BuyListRepository {
         final Objectify ofy = objectifyFactory.begin();
         ofy.save().entity(buyList).now();
         return buyList;
+    }
+
+    @Override
+    public BuyList get(Key<BuyList> key) {
+        throw new RuntimeException("niy"); //todo: niy
     }
 }

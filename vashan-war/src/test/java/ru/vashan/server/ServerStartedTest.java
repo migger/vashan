@@ -50,11 +50,11 @@ public class ServerStartedTest extends BaseServerTest {
         return value[0];
     }
 
-    @Test
-    public void testWait() throws Exception {
-        final Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-        System.out.format("redir --lport=9090 --cport=%s --laddr=0.0.0.0 --caddr=localhost", System.getProperty(BaseDevAppServerTestConfig.DEFAULT_PORT_SYSTEM_PROPERTY));
-
-        Thread.currentThread().join();
-    }
+//    @Test
+//    public void testWait() throws Exception {
+//        final Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+//        System.out.format("redir --lport=9090 --cport=%s --laddr=0.0.0.0 --caddr=localhost", System.getProperty(BaseDevAppServerTestConfig.DEFAULT_PORT_SYSTEM_PROPERTY));
+//
+//        Thread.currentThread().join();
+//    }
 }

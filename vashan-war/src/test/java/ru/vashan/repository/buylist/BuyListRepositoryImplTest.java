@@ -1,5 +1,6 @@
 package ru.vashan.repository.buylist;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.Result;
@@ -7,6 +8,7 @@ import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Loader;
 import com.googlecode.objectify.cmd.Query;
 import com.googlecode.objectify.cmd.Saver;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -95,6 +97,17 @@ public class BuyListRepositoryImplTest {
         final Result result = mock(Result.class);
         when(saver.entity(input)).thenReturn(result);
         buyListRepository.save(input);
+        verify(saver).entity(input);
+        verify(result).now();
+    }
+    @Test
+    public void testGet() throws Exception {
+        final Key<BuyList> input = mock(Key.class);
+        final BuyList expected = mock(BuyList.class);
+        final LoadType<BuyList> loadType = mock(LoadType.class);
+        when(loader.type(BuyList.class)).thenReturn(loadType);
+        when(loadType.id()
+        Assert.assertEquals(expected, buyListRepository.get(input);
         verify(saver).entity(input);
         verify(result).now();
     }

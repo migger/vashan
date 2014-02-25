@@ -17,21 +17,21 @@ import java.lang.reflect.Method;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class MainControllerTest {
+public class BuyListListControllerTest {
     @Configuration
     static class ContextConfiguration {
         @Bean
-        public MainController mainController() {
-            return new MainController();
+        public BuyListListController mainController() {
+            return new BuyListListController();
         }
     }
     @Autowired
-    private MainController mainController;
+    private BuyListListController buyListListController;
 
     @Test
     public void testController() throws Exception {
-        BaseChecks.assertIsAController("/index.html", mainController.getClass());
-        BaseChecks.ckeckMethod(mainController.getClass(),
+        BaseChecks.assertIsAController("/index.html", buyListListController.getClass());
+        BaseChecks.ckeckMethod(buyListListController.getClass(),
                 new Class[0], "index", new MethodChecker() {
             @Override
             public void checkMethod(Method method) {
@@ -42,7 +42,7 @@ public class MainControllerTest {
 
     @Test
     public void testReturnValidJsp() throws Exception {
-        Assert.assertEquals("/jsp/buylist/list.jspx", mainController.index());
+        Assert.assertEquals("/jsp/buylist/list.jspx", buyListListController.index());
 
     }
 }
