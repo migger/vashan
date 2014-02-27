@@ -9,5 +9,5 @@ public interface BuyListRepository {
     List<BuyList> getAll();
     BuyList save(BuyList buyList);
 
-    BuyList get(Key<BuyList> key);
+    BuyList get(long key);
 }

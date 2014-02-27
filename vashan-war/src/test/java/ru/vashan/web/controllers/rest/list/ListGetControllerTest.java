@@ -31,8 +31,6 @@ import static org.mockito.Mockito.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class ListGetControllerTest {
-    protected final LocalServiceTestHelper dataStore = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-
     @Configuration
     @Excluded
     static class ContextConfiguration {
@@ -52,17 +50,6 @@ public class ListGetControllerTest {
     @Autowired
     private BuyListRepository buyListRepository;
 
-    @Before
-    public void setUp() throws Exception {
-        dataStore.setUp();
-        reset(buyListRepository);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        dataStore.tearDown();
-    }
-
     @Test
     public void testIsController() throws Exception {
         BaseChecks.assertIsAController("/list/get.json", listGetController.getClass());
@@ -78,8 +65,7 @@ public class ListGetControllerTest {
     @Test
     public void testReturnList() throws Exception {
         final BuyList expected = mock(BuyList.class);
-        final Key<BuyList> key = Key.create(BuyList.class, 123L);
-        when(buyListRepository.get(key)).thenReturn(expected);
+        when(buyListRepository.get(123L)).thenReturn(expected);
         Assert.assertEquals(expected, listGetController.get(123L));
     }
 }

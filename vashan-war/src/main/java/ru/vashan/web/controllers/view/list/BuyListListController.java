@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/index.html")
 public class BuyListListController {
-    @RequestMapping(produces = MimeTypes.TEXT_HTML)
+    @RequestMapping()
     public String index() {
         return "/jsp/buylist/list.jspx";
     }

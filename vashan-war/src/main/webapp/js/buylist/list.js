@@ -28,10 +28,11 @@ function listItem_keyDown(event) {
             contentType:"application/json",
             dataType:"json",
             success: function (created) {
-                var newItem = $("<div class='list-item'/>");
-                newItem.html(itemString(created));
-                newItem.insertAfter($(".list-add"));
-                event.target.select();
+//                var newItem = $("<div class='list-item'/>");
+//                newItem.html(itemString(created));
+//                newItem.insertAfter($(".list-add"));
+//                event.target.select();
+                window.location = "list/edit/"+created.id;
             }
         });
         return false;

@@ -16,6 +16,6 @@ public class ListGetController {
     @RequestMapping
     @ResponseBody
     public BuyList get(Long id) {
-        return buyListRepository.get(Key.create(BuyList.class, id));
+        return buyListRepository.get(id);
     }
 }

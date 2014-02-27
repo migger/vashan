@@ -28,7 +28,8 @@ public class BuyListRepositoryImpl implements BuyListRepository {
     }
 
     @Override
-    public BuyList get(Key<BuyList> key) {
-        throw new RuntimeException("niy"); //todo: niy
+    public BuyList get(long key) {
+        final Objectify ofy = objectifyFactory.begin();
+        return ofy.load().type(BuyList.class).id(key).now();
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.vashan.server.testinfra.BaseChecks;
 import ru.vashan.server.testinfra.MethodChecker;
+import ru.vashan.web.controllers.Excluded;
 
 import java.lang.reflect.Method;
 
@@ -19,6 +20,7 @@ import java.lang.reflect.Method;
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class BuyListListControllerTest {
     @Configuration
+    @Excluded
     static class ContextConfiguration {
         @Bean
         public BuyListListController mainController() {
@@ -30,7 +32,7 @@ public class BuyListListControllerTest {
 
     @Test
     public void testController() throws Exception {
-        BaseChecks.assertIsAController("/index.html", buyListListController.getClass());
+        BaseChecks.assertIsAController("/", buyListListController.getClass());
         BaseChecks.ckeckMethod(buyListListController.getClass(),
                 new Class[0], "index", new MethodChecker() {
             @Override
