@@ -1,13 +1,4 @@
 function start() {
-    $.get('../../list/get/' + window.location.hash, gotItem);
-}
-
-function gotItem(item) {
-    $(".head").html(item.title);
-}
-
-function itemString(item) {
-    return '[' + new Date(item.date).toString('dd.MM.yyyy') + '] ' + item.title;
 }
 
 function listItem_keyDown(event) {

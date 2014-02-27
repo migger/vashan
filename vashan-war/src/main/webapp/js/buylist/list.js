@@ -1,6 +1,6 @@
 function start() {
     $( "#list-title-input" ).keydown(listItem_keyDown);
-    $.get('../../list/search.json', gotItems);
+    $.get(ROOT + '/list/search.json', gotItems);
 }
 
 function gotItems(items) {
@@ -22,7 +22,7 @@ function listItem_keyDown(event) {
             "title": event.target.value
         });
         $.ajax({
-            url: "../../list/save.json",
+            url: ROOT + "/list/save.json",
             type: "POST",
             data: rowItem,
             contentType:"application/json",
