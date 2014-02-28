@@ -54,7 +54,7 @@ public class ServerStartedTest extends BaseServerTest {
     public void testWait() throws Exception {
         final Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
         System.out.format("redir --lport=9090 --cport=%s --laddr=0.0.0.0 --caddr=localhost", System.getProperty(BaseDevAppServerTestConfig.DEFAULT_PORT_SYSTEM_PROPERTY));
-
-        Thread.currentThread().join();
+        if(System.getProperty("test.server.running") != null)
+            Thread.currentThread().join();
     }
 }

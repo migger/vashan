@@ -1,6 +1,10 @@
 package ru.vashan.web.controllers.rest.bounditem;
 
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.appengine.tools.development.testing.LocalURLFetchServiceTestConfig;
 import com.googlecode.objectify.Key;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +35,8 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class BoundItemByListControllerTest {
+    protected final LocalServiceTestHelper testHelper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
     @Configuration
     @Excluded
     static class ContextConfiguration {
@@ -51,7 +57,15 @@ public class BoundItemByListControllerTest {
     @Before
     public void setUp() throws Exception {
         reset(boundItemRepository);
+        testHelper.setUp();
     }
+
+    @After
+    public void tearDown() {
+        testHelper.tearDown();
+    }
+
+
 
     @Test
     public void testController() throws Exception {

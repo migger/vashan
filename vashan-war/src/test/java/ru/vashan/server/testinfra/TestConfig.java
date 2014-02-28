@@ -13,8 +13,15 @@ import java.util.*;
 public class TestConfig extends BaseDevAppServerTestConfig {
     public static final Set<String> DENIED_GOOGLE_ARTIFACTS = new HashSet<>(Arrays.asList("appengine-api-stubs", "appengine-tools-sdk", "appengine-testing"));
     private final static String appEngineHome;
+    private final static String name;
     static {
-       try(FileInputStream stream = new FileInputStream("vashan-war/appengine.properties")) {
+
+        if(new File("vashan-war").exists())
+            name = "vashan-war";
+        else
+            name = ".";
+
+        try(FileInputStream stream = new FileInputStream(name + "/appengine.properties")) {
            final Properties x = new Properties();
            x.load(stream);
            appEngineHome = x.getProperty("appengine.home");
@@ -33,7 +40,7 @@ public class TestConfig extends BaseDevAppServerTestConfig {
 
     @Override
     public File getAppDir() {
-        return new File("vashan-war/src/main/webapp");
+        return new File(name + "/src/main/webapp");
     }
 
     @Override

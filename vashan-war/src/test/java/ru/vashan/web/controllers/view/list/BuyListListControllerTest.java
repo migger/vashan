@@ -32,7 +32,7 @@ public class BuyListListControllerTest {
 
     @Test
     public void testController() throws Exception {
-        BaseChecks.assertIsAController("/", buyListListController.getClass());
+        BaseChecks.assertIsAController("/index.html", buyListListController.getClass());
         BaseChecks.ckeckMethod(buyListListController.getClass(),
                 new Class[0], "index", new MethodChecker() {
             @Override

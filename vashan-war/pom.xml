@@ -29,7 +29,6 @@
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
             <version>${appengine.target.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -99,6 +98,13 @@
             <artifactId>junit</artifactId>
             <version>4.8.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>appengine</groupId>
+            <artifactId>agent</artifactId>
+            <version>${appengine.app.version}</version>
+            <scope>system</scope>
+            <systemPath>${appengine.home}/lib/agent/appengine-agent.jar</systemPath>
         </dependency>
 
         <dependency>

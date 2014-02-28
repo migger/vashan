@@ -24,12 +24,16 @@
         <script >
             ROOT = "${ROOT}";
             $( document ).ready(start);
+            $( "#list-title-input").keypress(listItem_keyDown);
         </script>
     </head>
     <body >
         <div class="head">${list.title}</div>
         <div id="buyList-container" class="list-container">
-            <div class="list-add"><input id="list-title-input" class="list-add-field"/></div>
+            <div class="list-add">
+                <input id="list-title-input" class="list-add-field"/>
+                <div id="autoComplete" class="list-autocomplete"/>
+            </div>
         </div>
     </body>
     </html>
