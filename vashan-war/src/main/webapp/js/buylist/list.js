@@ -5,7 +5,7 @@ function start() {
 
 function gotItems(items) {
     items.forEach(function (i) {
-        var item = $("<div class='list-item'/>");
+        var item = $("<div class='search-item'/>");
         item.html(itemString(i));
         $( "#buyList-container" ).append(item);
     });
@@ -28,7 +28,7 @@ function listItem_keyDown(event) {
             contentType:"application/json",
             dataType:"json",
             success: function (created) {
-                window.location = "list/edit/" + created.id + "/";
+                window.location = ROOT + "/list/edit/" + created.id + "/";
             }
         });
         return false;

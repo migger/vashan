@@ -1,41 +1,49 @@
-//AUTO_COMPLETE_DELAY = 1000;
+    function start() {
+        var $list = $("#list-title-input");
+        $list.keypress(listItem_keyPressed);
+        $list.autocomplete({
+            select: function(event, ui) {
+                onEnterDown(event.target, ui.item.value);
+            },
+            source: function(request, response) {
+                $.ajax({
+                    url: ROOT + "/item/search/" + encodeURI(request.term) + ".json",
+                    type: "GET",
+                    dataType:"json",
+                    success: function (created) {
+                        response(created);
+                    }
+                });
+            }
+        })
+        .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+            return $( "<li>" )
+                .append( "<a>" + item.value + "</a>" )
+                .appendTo( ul );
+        };
 
-function start() {
-}
+    }
 
-function listItem_keyDown(event) {
-    var searchField = $("#list-title-input");
-    $.ajax({
-        url: ROOT + "/item/search/" + encodeURI(searchField.value),
-        type: "GET",
-        dataType: "json",
-        success: function (suggesions) {
-            var autoCompleteDiv = $("#autoComplete");
-            autoCompleteDiv.clear();
-            suggesions.forEach(function(item) {
-                autoCompleteDiv.append($('<div class="list-autocomplete-item">' + item.title + '</div>'));
-            });
+    function listItem_keyPressed(event) {
+        if (event.which == 13 || event.keyCode == 13) {
+            onEnterDown(event.target, event.target.value);
         }
-    });
-//    if (event.which == 13 || event.keyCode == 13) {
-//        var rowItem = JSON.stringify({
-//            "date": new Date(),
-//            "title": event.target.value
-//        });
-//        $.ajax({
-//            url: ROOT + "/list/save.json",
-//            type: "POST",
-//            data: rowItem,
-//            contentType:"application/json",
-//            dataType:"json",
-//            success: function (created) {
-//                var newItem = $("<div class='list-item'/>");
-//                newItem.html(itemString(created));
-//                newItem.insertAfter($(".list-add"));
-//                event.target.select();
-//            }
-//        });
-//        return false;
-//    }
-//    return true;
-}
+    }
+
+    function onEnterDown(field, value) {
+        $.ajax({
+            url: ROOT + "/item/findOrSave/" + encodeURI(value) + ".json",
+            type: "POST",
+            data: JSON.stringify({
+                title: value
+            }),
+            contentType:"application/json",
+            dataType: "json",
+            success: function(createdItem) {
+                var $suggestBox = $("#list-title-input");
+                $("<div class='list-item'>" + createdItem.title + "</div>").insertAfter($suggestBox);
+                field.value = "";
+                $suggestBox.autocomplete("close");
+            }
+        });
+    }

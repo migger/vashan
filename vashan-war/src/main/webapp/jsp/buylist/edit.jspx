@@ -17,14 +17,15 @@
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
         <link href="${ROOT}/css/normalize.css" rel="stylesheet"/>
         <link href="${ROOT}/css/main.css" rel="stylesheet"/>
+        <link href="${ROOT}/css/jquery-ui-1.10.4.css" rel="stylesheet"/>
         <title>Вашан, список продуктов.</title>
         <script src="${ROOT}/js/datejs.js">if(false) x=1;</script>
         <script src="${ROOT}/js/jquery-1.11.0.js">if(false) x=1;</script>
+        <script src="${ROOT}/js/jquery-ui-1.10.4.js">if(false) x=1;</script>
         <script src="${ROOT}/js/buylist/edit.js">if(false) x=1;</script>
         <script >
             ROOT = "${ROOT}";
             $( document ).ready(start);
-            $( "#list-title-input").keypress(listItem_keyDown);
         </script>
     </head>
     <body >
@@ -32,7 +33,6 @@
         <div id="buyList-container" class="list-container">
             <div class="list-add">
                 <input id="list-title-input" class="list-add-field"/>
-                <div id="autoComplete" class="list-autocomplete"/>
             </div>
         </div>
     </body>

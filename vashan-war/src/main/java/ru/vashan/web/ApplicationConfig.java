@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import ru.vashan._Components;
 import ru.vashan.domain.BuyList;
+import ru.vashan.domain.Item;
 import ru.vashan.web.controllers.Excluded;
 
 import java.text.DateFormat;
@@ -38,8 +39,9 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ObjectifyFactoryBean objectifyFactoryBean() {
         final ObjectifyFactoryBean bean = new ObjectifyFactoryBean();
-        bean.setClasses(Arrays.<Class<?>>asList(
-                BuyList.class
+        bean.setClasses(Arrays.asList(
+                BuyList.class,
+                Item.class
         ));
         return bean;
     }

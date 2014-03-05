@@ -19,6 +19,7 @@
         <title>Вашан, список продуктов.</title>
         <script src="${ROOT}/js/datejs.js">if(false) x=1;</script>
         <script src="${ROOT}/js/jquery-1.11.0.js">if(false) x=1;</script>
+        <script src="${ROOT}/js/jquery-ui-1.10.4.js">if(false) x=1;</script>
         <script src="${ROOT}/js/buylist/list.js">if(false) x=1;</script>
         <script >
             ROOT = "${ROOT}";
