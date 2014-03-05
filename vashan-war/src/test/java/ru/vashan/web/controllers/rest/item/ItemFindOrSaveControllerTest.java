@@ -54,7 +54,7 @@ public class ItemFindOrSaveControllerTest {
     @Test
     public void testIsController() throws Exception {
         BaseChecks.assertIsAController("/item/findOrSave/{title}.json", itemFindOrSaveController.getClass());
-        BaseChecks.ckeckMethod(itemFindOrSaveController.getClass(), new Class[]{Item.class}, "findOrSave", new MethodChecker(){
+        BaseChecks.ckeckMethod(itemFindOrSaveController.getClass(), new Class[]{String.class}, "findOrSave", new MethodChecker(){
             @Override
             public void checkMethod(Method method) {
                 Assert.assertNotNull(method.getAnnotation(RequestMapping.class));
@@ -72,7 +72,7 @@ public class ItemFindOrSaveControllerTest {
     @Test
     public void testList() throws Exception {
         final Item expected = mock(Item.class);
-        final String item = mock(String.class);
+        final String item = "123";
         when(itemRepository.findOrSave(item)).thenReturn(expected);
         Assert.assertEquals(expected, itemFindOrSaveController.findOrSave(item));
 
